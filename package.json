@@ -1,0 +1,24 @@
+{
+  "name": "screenshot-ai-analyst",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "concurrently \"nodemon --ext js,ejs app.js\" \"npm run browsersync\" ",
+    "browsersync": "browser-sync start --proxy \"http://localhost:3000\" --files \"views/**/*.ejs, public/**/*.*\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "browser-sync": "^3.0.0",
+    "concurrently": "^8.2.2"
+  }
+}

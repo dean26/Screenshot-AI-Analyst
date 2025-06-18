@@ -1,0 +1,55 @@
+<h1>Enter Directory Path</h1>
+<form id="pathForm">
+    <label for="directoryPath">Directory Path:</label>
+    <input type="text" id="directoryPath" name="directoryPath" placeholder="e.g., C:\Users\YourName\Documents" required>
+    <button type="submit">Start</button>
+</form>
+<div id="responseMessage"></div>
+
+<div class="loader-overlay" id="loaderOverlay">
+    <div class="loader"></div>
+</div>
+
+<script>
+    document.getElementById('pathForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const directoryPathInput = document.getElementById('directoryPath');
+        const directoryPath = directoryPathInput.value;
+        const loaderOverlay = document.getElementById('loaderOverlay');
+        const responseMessage = document.getElementById('responseMessage');
+
+        loaderOverlay.style.display = 'flex';
+        responseMessage.style.display = 'none';
+
+        try {
+            const response = await fetch('/submit-path', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ directoryPath: directoryPath })
+            });
+
+            const data = await response.json();
+ 
+            responseMessage.textContent = data.message;
+            responseMessage.style.backgroundColor = '#e9f7ef';
+            responseMessage.style.borderColor = '#d4edda';
+            responseMessage.style.color = '#155724';
+            responseMessage.style.display = 'block';
+
+            directoryPathInput.value = ''; 
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            
+            responseMessage.textContent = 'An error occurred. Please try again.';
+            responseMessage.style.backgroundColor = '#f8d7da';
+            responseMessage.style.borderColor = '#f5c6cb';
+            responseMessage.style.color = '#721c24';
+            responseMessage.style.display = 'block';
+        } finally {
+            loaderOverlay.style.display = 'none';
+        }
+    });
+</script>

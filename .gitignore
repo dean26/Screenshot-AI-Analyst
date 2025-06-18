@@ -1,0 +1,7 @@
+# Node.js
+node_modules/
+npm-debug.log*
+.env
+.DS_Store
+*.log
+/public/uploads/ # Example if you store user uploads in public
